@@ -12,7 +12,17 @@ export class notificationsController {
 
     @EventPattern('like_notification_created')
     async handleNotificationCreate(@Payload()data: notificationEvent) {
-        this.
+        admin.messaging()
+            .send(replyMessage)
+            .then(function (response) {
+                console.log('Successfully sent message: : ', response)
+
+            })
+            .catch(function (err) {
+                console.log('Error Sending message!!! : ', err)
+
+            })
+        return res.status(200).send("Notification Reply API")
     }
 
 }
