@@ -9,8 +9,8 @@ async function bootstrap() {
         transport: Transport.KAFKA,
           options:{
             client:{
-                clientId:'notification', //notification-server
-                brokers:['localhost:9092'],
+                clientId:'notification-server', //notification-server
+                brokers:['3.36.212.116:9092'],
             },
               consumer:{
                 groupId: 'notification-consumer' //notification-consumer0server

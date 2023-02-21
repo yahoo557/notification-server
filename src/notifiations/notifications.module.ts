@@ -1,15 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from "@nestjs/microservices";
-// import {notificationsController} from "./notifications.controller";
+정import {NotificationsController} from "./notifications.controller";
 
 
 
 @Module({
-    imports:[
-
-    ],
+    imports:[],
     providers: [],
-    controllers: [],
+    controllers: [NotificationsController],
 })
 export class NotificationsModule {}
 
