@@ -1,10 +1,9 @@
 import {ProviderToken} from "apn"
 
 export interface Message {
-    id: string;
-    type: MessageType;
+    payload:string;
     sender: string;
-    token: string;
+    deviceToken: string;
     createdAt: Date;
 }
 export enum MessageType{
