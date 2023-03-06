@@ -2,7 +2,9 @@ import {NestFactory} from '@nestjs/core';
 import {MicroserviceOptions, Transport} from "@nestjs/microservices";
 import {AppModule} from './app.module';
 
-async function bootstrap() {
+import {Logger} from "@nestjs/common";
+
+const bootstrap = async () => {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
       AppModule,
       {
@@ -10,7 +12,7 @@ async function bootstrap() {
           options: {
               client:{
                   clientId:'notifications',
-                  brokers:['15.165.177.220:9092'],
+                  brokers:[`${process.env.BROKER_CLUSTER_IP}:${process.env.BROKER_PORT||9092}`],
               },
               consumer: {
                   groupId: 'notifications-consumer-1',
@@ -19,6 +21,6 @@ async function bootstrap() {
 
       });
     await app.listen()
-    console.log('Kafka consumer is listening')
+    Logger.log(`Nest microservice is subscribing brokers on ${process.env.BROKER_CLUSTER_IP}:${process.env.BROKER_PORT||9092}`, 'main')
 }
 bootstrap();
