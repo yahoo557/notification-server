@@ -6,14 +6,11 @@ import {NotificationsModule} from "./notifications/notifications.module";
 export class AppController {
 
 
-    //kafka message 는 message:String/deviceToken:String/date:DateTime 으로 되어있음
+    //kafka message 는 payload:String/deviceToken:String/date:DateTime 으로 되어있음
     @MessagePattern('notification')
     getMessage(@Payload() message){
         const notificationService = new NotificationsService()
-
         const parsedMessage = message.split("/");
-
-
-
+        console.log(parsedMessage)
     }
 }
