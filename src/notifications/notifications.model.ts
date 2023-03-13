@@ -2,7 +2,6 @@ import {ProviderToken} from "apn"
 
 export interface Message {
     payload:string;
-    sender: string;
     deviceToken: string;
     createdAt: Date;
 }

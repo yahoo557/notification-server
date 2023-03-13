@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Message } from "./notifications.model"
-import { Provider,ProviderOptions, Notification,NotificationAlertOptions,  } from "apn"
+import { Provider, ProviderOptions, Notification,NotificationAlertOptions  } from "apn"
 import {providerToken} from "./notifications.model";
+import {Logger} from "@nestjs/common";
 
 @Injectable()
 export class NotificationsService {
@@ -10,27 +11,28 @@ export class NotificationsService {
             token:providerToken,
             production:false
         };
-
         const apnProvider = new Provider(options);
-
+        const notificationAlert : NotificationAlertOptions = {
+            title: "왓쏭",
+            subtitle: "알림",
+            body:message.payload
+        };
         const note = new Notification()
-
-        note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
-        note.badge = 3;
+        note.expiry = Math.floor(Date.now() / 1000) + 3600;
+        note.badge = 1;
         note.sound = "ping.aiff";
-        note.alert = "\uD83D\uDCE7 \u2709 You have a new message";
-        note.payload = {'messageFrom': 'John Appleseed'};
-        note.topic = "<your-app-bundle-id>";
+        note.alert = notificationAlert;
+        note.payload = {}
+        note.topic = process.env.BUNDLE_ID;
 
         apnProvider.send(note, message.deviceToken).then( (result)=>{
-
+                Logger.log(result, 'notificationService')
             }
         ).catch((err)=>{
-
+            Logger.log(err,'notificationService')
         })
 
     }
-
 
     insertMessage(message:Message){
 
