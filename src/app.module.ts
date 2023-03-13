@@ -1,15 +1,19 @@
 import { Module } from '@nestjs/common';
 import {NotificationsModule} from './notifications/notifications.module';
 import { ClientsModule, Transport } from "@nestjs/microservices";
-import { AppController } from "./app.controller"
 import { AppService } from "./app.service";
+import { ConfigModule } from '@nestjs/config';
 
 
 @Module({
   imports: [
-    NotificationsModule
+    NotificationsModule,
+      ConfigModule.forRoot({
+        isGlobal:true,
+        envFilePath: `.env`
+      })
   ],
-    controllers:[AppController],
+
 })
 
 export class AppModule {}
